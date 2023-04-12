@@ -22,8 +22,7 @@ public abstract class Table {
 		this.price = price;
 	}
 	/**
-	 * @return the numOfTables
-	 */
+	 * @return the numOfTable	 */
 	public int getNumOfTables() {
 		return numOfTables;
 	}

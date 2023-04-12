@@ -5,6 +5,7 @@ public class TableMenu {
 	private Scanner scanner;
 	private Login login;
 	private ArrayList<Table> tables;
+	private Customer customer;
 	/**
 	 * @param scanner
 	 * @param login
@@ -13,64 +14,27 @@ public class TableMenu {
 		this.scanner = scanner;
 		this.login = login;
 		this.tables=new ArrayList<Table>();
-	}
-	public void displayTableMenu() {
-		System.out.println("\n===============Welcome to The Antique Furniture Company===============\n");
 		
-		int choice;
-		do {
-			System.out.println("\n********Tables Available Options ***********");
-			System.out.println();
-            System.out.println("1. Create a new table");
-            System.out.println("2. View existing tables");
-            System.out.println("3. Update existing tables");
-            System.out.println("4. Delete existing tables");
-            System.out.println("5. Logout");
-            
-            System.out.print("\nSelect an option : ");
-            choice =scanner.nextInt();
-            scanner.nextLine();//consume the newline character left by nextInt()
-            System.out.println();
-            switch(choice) {
-            
-            case 1:
-            	System.out.println("You selected choice 1");
-            	//call create new table
-            	createTable();
-            	break;
-            case 2:
-            	System.out.println("You selected choice 2");
-            	//call view existing tables
-            	viewTable();
-            	break;
-            case 3:
-            	System.out.println("You selected choice 3");
-            	//call update existing table
-            	updateTable();
-            	break;
-            case 4:
-            	System.out.println("You selected choice 4");
-            	//call delete existing table
-            	deleteTable();
-            	break;
-            case 5:
-            	System.out.println("You selected choice 5");
-            	//Call exit program
-            	//proceed to next function
-                //Going to the CustomerMenu class
-                System.exit(0);
-            	break;
-            	default:
-            		System.out.println("Invalid Choice!!! Try again");
-            		return;
-            }
-            
-		}while(choice !=5);
-		scanner.close();
 	}
+	/**
+	 * @param scanner
+	 * @param login
+	 * @param tables
+	 * @param customer
+	 * @param customers
+	 */
+	
+	/**
+	 * @param scanner
+	 * @param login
+	 * @param tables
+	 * @param customer
+	 * @param customers
+	 */
+	Table table;
 	public void createTable() {
 		int numOfTables;
-		System.out.println("\n=======Create New Table=======\n");
+		System.out.println("\n*************Create New Table****************\n");
 		
 		System.out.println("***********Select Table Type *********** ");
 		System.out.println();
@@ -87,7 +51,7 @@ public class TableMenu {
 			numOfTables=scanner.nextInt();
 			table=new StandardTable("Pine",0,numOfTables,120,80,0);
 		}else if(tableType==2) {
-			System.out.println("\n==========Customize your Table==========\n");
+			System.out.println("\n*****************Customize your Table******************\n");
 			System.out.print("\nEnter wood type (Mahogany,Oak,Pine) : ");
 			String woodType=scanner.next();
 			System.out.print("\nEnter number of Drawers : ");
@@ -123,21 +87,22 @@ public class TableMenu {
 			System.out.println("No tables Available!!!");
 			return;
 		}
-		System.out.println("\n========View Existing Tables======\n");
+		System.out.println("\n****************View Existing Tables*****************\n");
 		for(int i=0;i<tables.size();++i) {
 			Table table=tables.get(i);
-			System.out.println("Table "+(i+1)+" : ");
+			System.out.println("Table #"+(i+1)+" : ");
 			System.out.println("Type : "+table.getClass().getSimpleName());
 			System.out.println("Wood Type : "+table.getWoodType());
 			System.out.println("Number of Drawers : "+table.getNumOfDrawers());
 			System.out.println("Number of Tables : "+table.getNumOfTables());
-			System.out.println("Length : "+table.getLength());
-			System.out.println("Width : "+table.getWidth());
-			System.out.println("Price : "+table.calculatePrice());
+			System.out.println("Length : "+table.getLength()+" cm");
+			System.out.println("Width : "+table.getWidth()+" cm");
+			System.out.println("Area : "+table.getWidth()*table.getLength()+" cm2");
+			//System.out.println("Price : "+table.calculatePrice());
 		}
 	}
 	public void updateTable() {
-		System.out.println("\n==========Update Tables============\n");
+		System.out.println("\n**************Update Tables*******************\n");
 		
 		if(tables.size()==0) {
 			System.out.println("No tables Available to update!!!");
@@ -229,7 +194,7 @@ public class TableMenu {
 			System.out.println("No tables available to Delete!!!");
 			return;
 		}
-		System.out.println("\n===========Delete Existing Tables================\n");
+		System.out.println("\n***************Delete Existing Tables*****************\n");
 		System.out.println("Select table to delete : ");
 		for(int i=0;i<tables.size();++i) {
 			System.out.println("Table #"+(i+1));
@@ -244,4 +209,105 @@ public class TableMenu {
 		tables.remove(tableNumber-1);
 		System.out.println("Table deleted Succesfully!!!");
 		}
+	ArrayList<Customer> customers= new ArrayList<>();
+	
+	
+	public void generateInvoice() {
+		if (tables.size() == 0) {
+	        System.out.println("No Tables or Customers available to generate invoice for.");
+	        return;
+	    }
+		System.out.println("\n~~~~~~~~~~~~~~~~Generating Invoice Tables~~~~~~~~~~~~~~~~~~~~~\n");
+		 // print customer details
+	    
+		double totalPrice=0;
+		//double totalTablesPrice=table.calculatePrice();
+		for(int i=0;i<tables.size();++i) {
+			Table table=tables.get(i);
+			totalPrice+=table.calculatePrice();
+			System.out.println();
+			System.out.println("Table #"+(i+1)+" : ");
+			System.out.println("Type : "+table.getClass().getSimpleName());
+			System.out.println("Wood Type : "+table.getWoodType());
+			System.out.println("Number of Drawers : "+table.getNumOfDrawers());
+			System.out.println("Number of Tables : "+table.getNumOfTables());
+			System.out.println("Length : "+table.getLength()+"cm");
+			System.out.println("Width : "+table.getWidth()+"cm");
+			System.out.println("Area : "+table.getLength()*table.getWidth()+"cm2");
+			System.out.println("Discount : 5 %");
+			System.out.println("Price : "+table.calculatePrice());
+			
+			
+		}
+		
+		double discountPrice = totalPrice * 0.05;
+        double totalAmount = totalPrice - discountPrice;
+        
+        System.out.println("Discounted Amount: " + discountPrice);
+        System.out.println("Total Amount: " + totalAmount);
+        
+        System.out.println("\n~~~~~~~~~~~~~~~~~~Invoice Tables~~~~~~~~~~~~~~~~~~~~~\n");
+	}
+	public void displayTableMenu() {
+		System.out.println("\n^^^^^^^^^^^^^^^^^^Welcome to The Antique Furniture Kenya Limited^^^^^^^^^^^^^^^\n");
+		
+		int choice;
+		do {
+			System.out.println("\n********Tables Available Options ***********");
+			System.out.println();
+            System.out.println("1. Create a new table");
+            System.out.println("2. View existing tables");
+            System.out.println("3. Update existing tables");
+            System.out.println("4. Delete existing tables");
+            System.out.println("5. Generate Invoice");
+            System.out.println("6. Logout");
+            System.out.print("\nSelect an option : ");
+            choice =scanner.nextInt();
+            scanner.nextLine();//consume the newline character left by nextInt()
+            System.out.println();
+            switch(choice) {
+            
+            case 1:
+            	System.out.println("You selected choice 1");
+            	//call create new table
+            	createTable();
+            	break;
+            case 2:
+            	System.out.println("You selected choice 2");
+            	//call view existing tables
+            	viewTable();
+            	break;
+            case 3:
+            	System.out.println("You selected choice 3");
+            	//call update existing table
+            	updateTable();
+            	break;
+            case 4:
+            	System.out.println("You selected choice 4");
+            	//call delete existing table
+            	deleteTable();
+            	
+            	break;
+            case 5:
+            	System.out.println("You selected choice 5");
+				generateInvoice();
+            	break;
+            case 6:
+            	System.out.println("You selected choice 5");
+            	System.out.println("You are Logged Out");
+            	//Call exit program
+            	//proceed to next function
+                //Going to the CustomerMenu class
+                System.exit(0);
+            	break;
+
+            	default:
+            		System.out.println("Invalid Choice!!! Try again");
+            		return;
+            }
+            
+		}while(choice !=6);
+		scanner.close();
+	}
+	
 }

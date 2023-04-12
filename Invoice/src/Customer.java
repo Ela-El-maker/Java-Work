@@ -32,6 +32,13 @@ public class Customer {
 		return name;
 	}
 	/**
+	 * @param name
+	 * @param phoneNumber
+	 * @param emailAddress
+	 * @param address
+	 */
+	
+	/**
 	 * @param name the name to set
 	 */
 	public void setName(String name) {

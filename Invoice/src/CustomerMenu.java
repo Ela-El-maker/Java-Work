@@ -4,6 +4,7 @@ import java.util.Scanner;
 public class CustomerMenu {
 	private ArrayList<Customer> customers;
 	private Scanner scanner;
+	private Customer customer;
 	/**
 	 * @param customers
 	 * @param scanner
@@ -12,58 +13,6 @@ public class CustomerMenu {
 		
 		customers=new ArrayList<>();
 		scanner=new Scanner(System.in);
-	}
-	
-	public void displayCustomerMenu(){
-		System.out.println("\n*************Welcome to The Antique Furniture Company**************\n");
-		int choice;
-		do {
-			System.out.println("\n********Your Available Options ***********");
-			System.out.println();
-            System.out.println("1. Create a new profile");
-            System.out.println("2. View existing profile");
-            System.out.println("3. Update existing profile");
-            System.out.println("4. Delete existing profile");
-            System.out.println("5. Logout");
-            
-            System.out.print("\nSelect an option : ");
-            choice =scanner.nextInt();
-            scanner.nextLine();//consume the newline character left by nextInt()
-            System.out.println();
-            switch(choice) {
-            
-            case 1:
-            	System.out.println("You selected choice 1");
-            	//call create new customer
-            	createCustomer();
-            	break;
-            case 2:
-            	System.out.println("You selected choice 2");
-            	//call view existing customer
-            	viewCustomer();
-            	break;
-            case 3:
-            	System.out.println("You selected choice 3");
-            	//call update existing customer
-            	updateCustomer();
-            	break;
-            case 4:
-            	System.out.println("You selected choice 4");
-            	//call delete existing customer
-            	deleteCustomer();
-            	break;
-            case 5:
-            	System.out.println("You selected choice 5");
-            	//Call exit program
-            	System.exit(0);
-            	break;
-            	default:
-            		System.out.println("Invalid Choice!!! Try again");
-            		return;
-            }
-            
-		}while(choice !=5);
-		scanner.close();
 		
 	}
 	private void createCustomer() {
@@ -98,6 +47,7 @@ public class CustomerMenu {
         
         //Going to TableMenu Class
         Login login =new Login();
+        Customer customer;
 	    TableMenu tableMenu=new TableMenu(scanner,login);
 	    tableMenu.displayTableMenu();
     }
@@ -119,7 +69,7 @@ public class CustomerMenu {
 		}
 	}
 	public void updateCustomer() {
-		System.out.println("\n==========Update Customers============\n");
+		System.out.println("\n**************Update Customers**************\n");
 		if(customers.size()==0) {
 			System.out.println("\nNo customers added yet!!!\n");
 			return;
@@ -191,7 +141,7 @@ public class CustomerMenu {
 			System.out.println("No Customers available to Delete!!!");
 			return;
 		}
-		System.out.println("\n===========Delete Existing Customers================\n");
+		System.out.println("\n************Delete Existing Customers**************\n");
 		System.out.println("Select customer to delete : ");
 		for(int i=0;i<customers.size();++i) {
 			System.out.println("Table #"+(i+1));
@@ -206,5 +156,57 @@ public class CustomerMenu {
 		customers.remove(customerNumber-1);
 		System.out.println("Customer deleted Succesfully!!!");
 		}
+	public void displayCustomerMenu(){
+		System.out.println("\n*************Welcome to The Antique Furniture Kenya Limited**************\n");
+		int choice;
+		do {
+			System.out.println("\n********Your Available Options ***********");
+			System.out.println();
+            System.out.println("1. Create a new profile");
+            System.out.println("2. View existing profile");
+            System.out.println("3. Update existing profile");
+            System.out.println("4. Delete existing profile");
+            System.out.println("5. Logout");
+            
+            System.out.print("\nSelect an option : ");
+            choice =scanner.nextInt();
+            scanner.nextLine();//consume the newline character left by nextInt()
+            System.out.println();
+            switch(choice) {
+            
+            case 1:
+            	System.out.println("You selected choice 1");
+            	//call create new customer
+            	createCustomer();
+            	break;
+            case 2:
+            	System.out.println("You selected choice 2");
+            	//call view existing customer
+            	viewCustomer();
+            	break;
+            case 3:
+            	System.out.println("You selected choice 3");
+            	//call update existing customer
+            	updateCustomer();
+            	break;
+            case 4:
+            	System.out.println("You selected choice 4");
+            	//call delete existing customer
+            	deleteCustomer();
+            	break;
+            case 5:
+            	System.out.println("You selected choice 5");
+            	//Call exit program
+            	System.exit(0);
+            	break;
+            	default:
+            		System.out.println("Invalid Choice!!! Try again");
+            		return;
+            }
+            
+		}while(choice !=5);
+		scanner.close();
+		
+	}
 	
 }
